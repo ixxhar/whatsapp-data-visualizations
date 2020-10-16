@@ -21,7 +21,7 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config[
-    "FILE_UPLOADS"] = "/Users/izharhussain/PycharmProjects/trying_to_make_a_data_visualization_script_for_whatsapp_chat_wish_me_luck_cause_i_leave_projects_in_the_middle/data/uploads"
+    "FILE_UPLOADS"] = "../data/uploads"
 app.config["ALLOWED_FILE_EXTENSIONS"] = ["TXT"]
 
 
