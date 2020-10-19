@@ -19,3 +19,4 @@
 1. Responsive Theme
 2. Angular Front End
 3. Code Refactoring
+4. Heroku uploading
