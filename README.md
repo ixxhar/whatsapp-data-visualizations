@@ -20,3 +20,20 @@
 2. Angular Front End
 3. Code Refactoring
 4. Heroku uploading
+
+## Note for heroku hosting
+
+1. https://whatsappvisualizer.herokuapp.com/
+2. In your directory write heroku login
+   My username: jamalhussayn@gmail.com
+   Password: Alpha@Braov@0334
+3. Inside your main git repository write
+   heroku git:remote -a whatsappvisualizer
+4. The above code will link your repo with heroku
+5. Then just do normal git operations like
+   git add . (For adding all files)
+   git commit -am "commit message"
+   git push heroku master
+6. And to update your actual git repository use
+   git add .
+   git push -u origin (This will update your actual git repo)
