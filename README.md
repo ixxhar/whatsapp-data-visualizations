@@ -26,7 +26,7 @@
 1. https://whatsappvisualizer.herokuapp.com/
 2. In your directory write heroku login
    My username: jamalhussayn@gmail.com
-   Password: Alpha@Braov@0334
+   Password: Alpha@Bravo@0334
 3. Inside your main git repository write
    heroku git:remote -a whatsappvisualizer
 4. The above code will link your repo with heroku
