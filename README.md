@@ -30,7 +30,7 @@
 3. Inside your main git repository write
    heroku git:remote -a whatsappvisualizer
 4. The above code will link your repo with heroku
-5. Then just do normal git operations like
+5. Then just do normal git operations like (For every change in code use following, this will reflect in heroku)
    git add . (For adding all files)
    git commit -am "commit message"
    git push heroku master
