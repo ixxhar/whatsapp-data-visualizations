@@ -12,3 +12,10 @@
    3. Total Messages by individual.
    4. Number of Different Emojis, most Common Emoji and it's occurence.
    5. Busiest Hour of chat, Busiest Day of Chat, Busiest Month of Chat.
+
+
+## Following things have to be done
+
+1. Responsive Theme
+2. Angular Front End
+3. Code Refactoring
