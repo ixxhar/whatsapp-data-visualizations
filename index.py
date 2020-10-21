@@ -6,17 +6,18 @@ https://www.chartjs.org/docs/latest/
 https://stackoverflow.com/questions/46786211/counting-the-frequency-of-words-in-a-pandas-data-frame
 '''
 
-import os
-import pandas as pd
-import emoji
-import regex
-import re
-from collections import Counter
 import json
+import os
 import random
+import re
 import time
+from collections import Counter
 
-from flask import Flask, render_template, request, redirect, send_from_directory, url_for
+import emoji
+import pandas as pd
+import regex
+from flask import (Flask, redirect, render_template, request,
+                   send_from_directory, url_for)
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -97,8 +98,10 @@ def data_preprocess(chat_file):
     pd.set_option('display.max_columns', None)
 
     whatsapp_chat_file = open(chat_file, 'r')
-    df = pd.DataFrame(data=[line.split(' - ', 1) for line in whatsapp_chat_file], columns=['DateTime', 'Message'])
-    df[['Member', 'Message']] = df.Message.apply(lambda x: pd.Series(str(x).split(":", 1))).dropna()
+    df = pd.DataFrame(data=[line.split(
+        ' - ', 1) for line in whatsapp_chat_file], columns=['DateTime', 'Message'])
+    df[['Member', 'Message']] = df.Message.apply(
+        lambda x: pd.Series(str(x).split(":", 1))).dropna()
     df = df.dropna()
 
     df['DateTime'] = pd.to_datetime(df['DateTime'])
@@ -142,13 +145,16 @@ def data_preprocess(chat_file):
     data_busy_day = df.groupby(df.index.day).count()
     data_busy_month = df.groupby(df.index.month).count()
 
-    busiest_hour = data_busy_hour.sort_values(by=['Message'], ascending=False).index[0]
+    busiest_hour = data_busy_hour.sort_values(
+        by=['Message'], ascending=False).index[0]
     busiest_hour_message_count = data_busy_hour['Message'][busiest_hour]
 
-    busiest_day = data_busy_day.sort_values(by=['Message'], ascending=False).index[0]
+    busiest_day = data_busy_day.sort_values(
+        by=['Message'], ascending=False).index[0]
     busiest_day_message_count = data_busy_day['Message'][busiest_day]
 
-    busiest_month = data_busy_month.sort_values(by=['Message'], ascending=False).index[0]
+    busiest_month = data_busy_month.sort_values(
+        by=['Message'], ascending=False).index[0]
     busiest_month_message_count = data_busy_month['Message'][busiest_month]
 
     busiest_data = {
@@ -211,8 +217,8 @@ def data_preprocess(chat_file):
     }
 
     return chat_data, \
-           json.dumps(data_busy_hour_json), json.dumps(data_busy_day_json), json.dumps(data_busy_month_json), \
-           busiest_data
+        json.dumps(data_busy_hour_json), json.dumps(data_busy_day_json), json.dumps(data_busy_month_json), \
+        busiest_data
 
     ###
 
@@ -231,8 +237,8 @@ def visualize(filename):
 
     if CHECK_FLAG in f"{whatsapp_chat_file.readlines()}":
         chat_data, \
-        data_busy_hour_json, data_busy_day_json, data_busy_month_json, \
-        busiest_data = data_preprocess(chat_file)
+            data_busy_hour_json, data_busy_day_json, data_busy_month_json, \
+            busiest_data = data_preprocess(chat_file)
 
         return render_template('base.html', chat_data=chat_data,
                                data_busy_hour_json=data_busy_hour_json,
