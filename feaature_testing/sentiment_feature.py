@@ -59,7 +59,7 @@ if __name__ == '__main__':
     pd.set_option('max_colwidth', 50)
     pd.set_option('display.max_columns', None)
 
-    whatsapp_chat_file = open('../../data/chat_muaz_small.txt', 'r')
+    whatsapp_chat_file = open('/Users/izharhussain/PycharmProjects/data/chat_muaz_small.txt', 'r')
     df = pd.DataFrame(data=[line.split(' - ', 1) for line in whatsapp_chat_file], columns=['DateTime', 'Message'])
     df[['Member', 'Message']] = df.Message.apply(lambda x: pd.Series(str(x).split(":", 1)))
 
