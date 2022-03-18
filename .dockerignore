@@ -3,3 +3,4 @@
 .DS_Store
 python_environment
 venv
+.gitignore

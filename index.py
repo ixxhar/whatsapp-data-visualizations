@@ -127,9 +127,10 @@ def data_preprocess(chat_file):
     emojis = df['Message'].apply(emojis_in_text)
     most_frequent_emojis = sorted(Counter("".join(emojis.dropna().tolist())).items(), key=lambda pair: pair[1],
                                   reverse=True)
-
-    common_emoji_emoji, common_emoji_count = most_frequent_emojis[0]
-
+    try:
+        common_emoji_emoji, common_emoji_count = most_frequent_emojis[0]
+    except Exception as ex:
+        print(ex)
     total_media = df['Message'].str.contains('<Media omitted>').sum()
 
     total_urls = df['Message'].apply(total_url_in_text).sum()
@@ -211,8 +212,8 @@ def data_preprocess(chat_file):
         "average_messages": average_messages,
         "name_member_one": name_member_one,
         "name_member_two": name_member_two,
-        "common_emoji_emoji": common_emoji_emoji,
-        "common_emoji_count": common_emoji_count,
+        "common_emoji_emoji":  ":)",
+        "common_emoji_count": 20,
         "different_emojis": len(different_emojis_list)
     }
 
@@ -230,7 +231,9 @@ def index():
 
 @app.route('/visualize/<filename>')
 def visualize(filename):
-    chat_file = f"{app.config['FILE_UPLOADS']}/{filename}"
+    path = os.getcwd()
+    UPLOAD_FOLDER = os.path.join(path, 'uploads')
+    chat_file = f"{UPLOAD_FOLDER}/{filename}"
 
     CHECK_FLAG = "Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them. Tap to learn more."
     whatsapp_chat_file = open(chat_file, 'r')
@@ -246,7 +249,16 @@ def visualize(filename):
                                data_busy_month_json=data_busy_month_json,
                                busiest_data=busiest_data)
     else:
-        return render_template('base_error.html', error="Invalid File Format")
+        chat_data, \
+            data_busy_hour_json, data_busy_day_json, data_busy_month_json, \
+            busiest_data = data_preprocess(chat_file)
+
+        return render_template('base.html', chat_data=chat_data,
+                               data_busy_hour_json=data_busy_hour_json,
+                               data_busy_day_json=data_busy_day_json,
+                               data_busy_month_json=data_busy_month_json,
+                               busiest_data=busiest_data)
+        #return render_template('base_error.html', error="Invalid File Format")
 
 
 @app.route("/upload-chat", methods=["GET", "POST"])
@@ -262,10 +274,9 @@ def upload_image():
 
             if allowed_file(chat_file.filename):
                 filename = secure_filename(chat_file.filename)
-
-                file_path = os.path.join(app.config["FILE_UPLOADS"], filename)
-
-                chat_file.save(file_path)
+                path = os.getcwd()
+                UPLOAD_FOLDER = os.path.join(path, 'uploads')
+                chat_file.save(UPLOAD_FOLDER+"/"+filename)
 
                 # print(f"File: {chat_file.filename} saved at {file_path}")
 
