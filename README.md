@@ -12,27 +12,3 @@ _A dashboard where you can upload your chats and find out different statistics._
    3. Total Messages by individual.
    4. Number of Different Emojis, most Common Emoji and it's occurence.
    5. Busiest Hour of chat, Busiest Day of Chat, Busiest Month of Chat.
-
-## Following things have to be done
-
-1. Responsive Theme
-2. Angular Front End
-3. Code Refactoring
-4. Heroku uploading
-
-## Note for heroku hosting
-
-1. <https://whatsappvisualizer.herokuapp.com/>
-2. In your directory write heroku login
-   My username: jamalhussayn@gmail.com
-   Password: Alpha@Bravo@0334
-3. Inside your main git repository write
-   heroku git:remote -a whatsappvisualizer
-4. The above code will link your repo with heroku
-5. Then just do normal git operations like (For every change in code use following, this will reflect in heroku)
-   git add . (For adding all files)
-   git commit -am "commit message"
-   git push heroku master
-6. And to update your actual git repository use
-   git add .
-   git push -u origin (This will update your actual git repo)
